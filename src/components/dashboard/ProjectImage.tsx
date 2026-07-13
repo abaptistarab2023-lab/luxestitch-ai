@@ -27,6 +27,7 @@ export function ProjectImage({
       fill
       className="object-cover"
       unoptimized
+      loading="eager"
       onError={() => setFailed(true)}
     />
   );
