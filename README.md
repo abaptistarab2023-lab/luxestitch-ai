@@ -7,6 +7,9 @@ A personalized-embroidery gifting app for South Florida women (ages 28–60) sho
 - **[ARCHITECTURE.md](ARCHITECTURE.md)** — how the system is built and why
 - **[DEPLOYMENT.md](DEPLOYMENT.md)** — full setup and deploy instructions
 - **[PRODUCT_ROADMAP.md](PRODUCT_ROADMAP.md)** — what's shipped and what's next
+- **[FINAL_REVIEW.md](FINAL_REVIEW.md)** — v1.0.0 production review: tests performed, known limitations, next steps
+
+Live at **[luxestitch-ai.vercel.app](https://luxestitch-ai.vercel.app)**.
 
 ## Features
 
