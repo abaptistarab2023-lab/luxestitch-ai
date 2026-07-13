@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# LuxeStitch AI
 
-## Getting Started
+**Version 1.0.0 — MVP**
 
-First, run the development server:
+A personalized-embroidery gifting app for South Florida women (ages 28–60) shopping for monogrammed towels, linens, robes, and baby/wedding/baptism/luxury home gifts. Built with Next.js 15, TypeScript, Tailwind CSS, Supabase, and Firecrawl.
+
+- **[ARCHITECTURE.md](ARCHITECTURE.md)** — how the system is built and why
+- **[DEPLOYMENT.md](DEPLOYMENT.md)** — full setup and deploy instructions
+- **[PRODUCT_ROADMAP.md](PRODUCT_ROADMAP.md)** — what's shipped and what's next
+
+## Features
+
+- Premium, ICP-focused landing page
+- Email/password registration and login (Supabase Auth)
+- Protected dashboard (middleware + server-side session checks)
+- Create a personalization project by pasting a product URL — Firecrawl extracts the title, description, and image server-side
+- Optional inspiration image upload (Supabase Storage)
+- Review and edit extracted details before saving
+- Projects are saved to Postgres with Row Level Security, so each user only ever sees their own projects
+
+## Quick start
 
 ```bash
+npm install
+cp .env.local.example .env.local   # fill in your Supabase + Firecrawl values
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+You'll need a Supabase project (with the migrations in `supabase/migrations/` applied) and a Firecrawl API key first — see **[DEPLOYMENT.md](DEPLOYMENT.md)** for the complete walkthrough, including Vercel deployment.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+  app/            Routes: landing page, auth pages, dashboard, API routes
+  components/      landing/, auth/, dashboard/, projects/, ui/
+  lib/
+    supabase/      Browser, server, and middleware Supabase clients
+    firecrawl/      Server-only Firecrawl wrapper
+    validations/    Zod schemas
+    types/          Database types
+supabase/migrations/  SQL migrations (run manually in the Supabase SQL editor)
+```
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+See **[ARCHITECTURE.md](ARCHITECTURE.md)** for the full request-flow and security model behind this structure.
