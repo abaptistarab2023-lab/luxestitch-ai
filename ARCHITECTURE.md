@@ -25,7 +25,7 @@ Browser
 |---|---|---|
 | Framework | Next.js 15, App Router, React 19 | Server Components let us query Supabase directly from pages with no API boilerplate for reads |
 | Styling | Tailwind CSS v4 | CSS-first config (`@theme` in `globals.css`), no `tailwind.config.ts` needed |
-| Auth | Supabase Auth, email/password | Matches the assignment scope; no OAuth providers configured |
+| Auth | Supabase Auth, email/password | Scoped to what v1.0 needs; no OAuth providers configured yet |
 | Database | Supabase Postgres | Single `projects` table, RLS-scoped per user |
 | File storage | Supabase Storage | Private `inspiration-images` bucket, RLS-scoped per user |
 | Web scraping | Firecrawl (`@mendable/firecrawl-js`) | Server-only; powers the product-URL import step |

@@ -35,7 +35,13 @@ export async function scrapeProductUrl(url: string): Promise<ScrapedProduct> {
     doc.metadata?.description ||
     doc.summary ||
     "";
-  const imageUrl = doc.metadata?.ogImage || doc.images?.[0] || null;
+  const rawImageUrl = doc.metadata?.ogImage || doc.images?.[0] || null;
+  // Some sites still serve their og:image over http:// on an otherwise https
+  // site; browsers block that as mixed content when we render it, so upgrade
+  // it here rather than showing a broken image later.
+  const imageUrl = rawImageUrl?.startsWith("http://")
+    ? rawImageUrl.replace("http://", "https://")
+    : rawImageUrl;
 
   return { title, description, imageUrl };
 }

@@ -24,7 +24,7 @@ export function ImageUploadStep({
       <div className="flex items-center gap-4">
         <label
           htmlFor="inspiration-image"
-          className="flex cursor-pointer items-center gap-2 rounded-full border border-border bg-card px-5 py-2.5 text-sm font-medium text-foreground hover:bg-muted-bg"
+          className="flex cursor-pointer items-center gap-2 rounded-full border border-border bg-card px-6 py-3 text-sm font-medium text-foreground hover:bg-muted-bg"
         >
           {uploading && <Spinner className="h-4 w-4" />}
           {uploading ? "Uploading..." : "Choose Image"}

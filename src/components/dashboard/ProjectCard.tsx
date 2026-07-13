@@ -1,7 +1,7 @@
-import Image from "next/image";
 import { ITEM_TYPE_LABELS } from "@/lib/validations/project";
 import type { ProjectRow } from "@/lib/types/database";
 import { Card } from "@/components/ui";
+import { ProjectImage } from "./ProjectImage";
 
 export function ProjectCard({
   project,
@@ -15,19 +15,7 @@ export function ProjectCard({
   return (
     <Card className="overflow-hidden">
       <div className="relative aspect-[4/3] w-full bg-muted-bg">
-        {displayImage ? (
-          <Image
-            src={displayImage}
-            alt={project.title}
-            fill
-            className="object-cover"
-            unoptimized
-          />
-        ) : (
-          <div className="flex h-full items-center justify-center text-sm text-muted">
-            No image
-          </div>
-        )}
+        <ProjectImage src={displayImage} alt={project.title} />
       </div>
       <div className="p-5">
         <div className="flex items-start justify-between gap-2">

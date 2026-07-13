@@ -16,7 +16,7 @@ The smallest complete loop: land on the site, understand who it's for, create an
 - View all saved projects, each showing its personalization details and image
 - Row Level Security end-to-end — every user sees only their own data
 
-**Explicitly out of scope for v1.0**: editing or deleting a saved project, payments/checkout, an admin or fulfillment view, email/SMS notifications. These weren't cut for lack of time — they were deliberately deferred so the MVP stayed focused on the core create-and-view loop for a graduate course deadline.
+**Explicitly out of scope for v1.0**: editing or deleting a saved project, payments/checkout, an admin or fulfillment view, email/SMS notifications. These weren't cut for lack of time — they were deliberately deferred so the MVP stayed focused on shipping the core create-and-view loop first.
 
 ## v1.1 — Complete the project lifecycle
 
