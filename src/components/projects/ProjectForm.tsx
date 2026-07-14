@@ -11,10 +11,19 @@ import {
 import { Button, Input, Textarea, Select, Alert } from "@/components/ui";
 import { UrlImportStep } from "./UrlImportStep";
 import { ImageUploadStep } from "./ImageUploadStep";
+import type { ProjectRow } from "@/lib/types/database";
 
 const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
 
-export function ProjectForm({ userId }: { userId: string }) {
+export function ProjectForm({
+  userId,
+  mode = "create",
+  project,
+}: {
+  userId: string;
+  mode?: "create" | "edit";
+  project?: ProjectRow;
+}) {
   const router = useRouter();
 
   const [url, setUrl] = useState("");
@@ -25,21 +34,27 @@ export function ProjectForm({ userId }: { userId: string }) {
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-  const [imagePath, setImagePath] = useState<string | null>(null);
+  const [imagePath, setImagePath] = useState<string | null>(
+    project?.reference_image_path ?? null
+  );
 
-  const [title, setTitle] = useState("");
-  const [itemType, setItemType] = useState<(typeof ITEM_TYPES)[number]>("towel");
-  const [occasion, setOccasion] = useState("");
-  const [recipientName, setRecipientName] = useState("");
-  const [monogramText, setMonogramText] = useState("");
-  const [fontStyle, setFontStyle] = useState("");
-  const [threadColor, setThreadColor] = useState("");
-  const [notes, setNotes] = useState("");
+  const [title, setTitle] = useState(project?.title ?? "");
+  const [itemType, setItemType] = useState<(typeof ITEM_TYPES)[number]>(
+    project?.item_type ?? "towel"
+  );
+  const [occasion, setOccasion] = useState(project?.occasion ?? "");
+  const [recipientName, setRecipientName] = useState(project?.recipient_name ?? "");
+  const [monogramText, setMonogramText] = useState(project?.monogram_text ?? "");
+  const [fontStyle, setFontStyle] = useState(project?.font_style ?? "");
+  const [threadColor, setThreadColor] = useState(project?.thread_color ?? "");
+  const [notes, setNotes] = useState(project?.notes ?? "");
 
-  const [sourceUrl, setSourceUrl] = useState("");
-  const [sourceTitle, setSourceTitle] = useState("");
-  const [sourceImageUrl, setSourceImageUrl] = useState("");
-  const [sourceDescription, setSourceDescription] = useState("");
+  const [sourceUrl, setSourceUrl] = useState(project?.source_url ?? "");
+  const [sourceTitle, setSourceTitle] = useState(project?.source_title ?? "");
+  const [sourceImageUrl, setSourceImageUrl] = useState(project?.source_image_url ?? "");
+  const [sourceDescription, setSourceDescription] = useState(
+    project?.source_description ?? ""
+  );
 
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
@@ -135,9 +150,13 @@ export function ProjectForm({ userId }: { userId: string }) {
       return;
     }
 
+    const isEdit = mode === "edit" && project;
+    const endpoint = isEdit ? `/api/projects/${project.id}` : "/api/projects";
+    const method = isEdit ? "PATCH" : "POST";
+
     try {
-      const res = await fetch("/api/projects", {
-        method: "POST",
+      const res = await fetch(endpoint, {
+        method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           title,
@@ -165,7 +184,7 @@ export function ProjectForm({ userId }: { userId: string }) {
         return;
       }
 
-      router.push("/dashboard");
+      router.push(isEdit ? `/dashboard/projects/${project.id}` : "/dashboard");
     } catch {
       setSaveError("We couldn't save your project. Please try again.");
       setSaving(false);
@@ -284,8 +303,20 @@ export function ProjectForm({ userId }: { userId: string }) {
 
       <div className="flex items-center gap-4">
         <Button type="submit" loading={saving}>
-          {saving ? "Saving..." : "Save Project"}
+          {saving
+            ? "Saving..."
+            : mode === "edit"
+              ? "Save Changes"
+              : "Save Project"}
         </Button>
+        {mode === "edit" && project && (
+          <a
+            href={`/dashboard/projects/${project.id}`}
+            className="text-sm font-medium text-muted hover:text-foreground"
+          >
+            Cancel
+          </a>
+        )}
       </div>
     </form>
   );

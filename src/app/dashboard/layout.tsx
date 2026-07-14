@@ -16,9 +16,15 @@ export default async function DashboardLayout({
     redirect("/login");
   }
 
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("is_admin")
+    .eq("id", user.id)
+    .maybeSingle();
+
   return (
     <div className="min-h-screen bg-muted-bg/40">
-      <DashboardNav email={user.email ?? ""} />
+      <DashboardNav email={user.email ?? ""} isAdmin={profile?.is_admin ?? false} />
       <main className="mx-auto max-w-6xl px-6 py-10">{children}</main>
     </div>
   );
