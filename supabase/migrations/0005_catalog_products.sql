@@ -3,6 +3,10 @@
 -- to every visitor; a project is one customer's private order — the two
 -- were conflated pre-pilot (demo products lived inside a real account's
 -- dashboard) and this table is the fix.
+--
+-- NOTE: the "Admins can manage catalog products" policy below is superseded
+-- by 0007_fix_admin_rls_recursion.sql (recursive-policy fix) — always run
+-- 0007 after this one.
 create table if not exists public.catalog_products (
   id uuid primary key default gen_random_uuid(),
   title text not null,

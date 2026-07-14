@@ -2,6 +2,11 @@
 -- is_admin is never settable through the app — only by direct SQL against
 -- this table. There is no in-app "grant admin" action, to avoid adding a
 -- privilege-escalation surface.
+--
+-- NOTE: the "Admins can view all profiles" policy below is superseded by
+-- 0007_fix_admin_rls_recursion.sql, which replaces its recursive subquery
+-- with a SECURITY DEFINER function. Left as originally written here for an
+-- accurate history — always run 0007 after this one.
 create table if not exists public.profiles (
   id uuid primary key references auth.users (id) on delete cascade,
   email text,
