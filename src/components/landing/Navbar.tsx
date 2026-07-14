@@ -10,6 +10,12 @@ export function Navbar() {
         </Link>
         <nav className="flex items-center gap-3">
           <Link
+            href="/catalog"
+            className="hidden text-sm font-medium text-foreground hover:text-primary sm:block"
+          >
+            Catalog
+          </Link>
+          <Link
             href="/login"
             className="hidden text-sm font-medium text-foreground hover:text-primary sm:block"
           >

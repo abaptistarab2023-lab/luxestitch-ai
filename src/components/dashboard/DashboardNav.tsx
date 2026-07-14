@@ -1,7 +1,13 @@
 import Link from "next/link";
 import { signOutAction } from "@/app/dashboard/actions";
 
-export function DashboardNav({ email }: { email: string }) {
+export function DashboardNav({
+  email,
+  isAdmin,
+}: {
+  email: string;
+  isAdmin: boolean;
+}) {
   return (
     <header className="border-b border-border bg-card">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
@@ -9,6 +15,14 @@ export function DashboardNav({ email }: { email: string }) {
           LuxeStitch <span className="text-primary">AI</span>
         </Link>
         <div className="flex items-center gap-4">
+          {isAdmin && (
+            <Link
+              href="/admin"
+              className="text-sm font-medium text-foreground hover:text-primary"
+            >
+              Admin
+            </Link>
+          )}
           <span className="hidden text-sm text-muted sm:block">{email}</span>
           <form action={signOutAction}>
             <button

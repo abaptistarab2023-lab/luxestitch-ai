@@ -1,7 +1,9 @@
+import Link from "next/link";
 import { ITEM_TYPE_LABELS } from "@/lib/validations/project";
 import type { ProjectRow } from "@/lib/types/database";
 import { Card } from "@/components/ui";
 import { ProjectImage } from "./ProjectImage";
+import { StatusBadge } from "./StatusBadge";
 
 export function ProjectCard({
   project,
@@ -14,18 +16,24 @@ export function ProjectCard({
 
   return (
     <Card className="overflow-hidden">
-      <div className="relative aspect-[4/3] w-full bg-muted-bg">
-        <ProjectImage src={displayImage} alt={project.title} />
-      </div>
+      <Link href={`/dashboard/projects/${project.id}`}>
+        <div className="relative aspect-[4/3] w-full bg-muted-bg">
+          <ProjectImage src={displayImage} alt={project.title} />
+        </div>
+      </Link>
       <div className="p-5">
         <div className="flex items-start justify-between gap-2">
-          <h3 className="font-display text-lg text-foreground">
+          <Link
+            href={`/dashboard/projects/${project.id}`}
+            className="font-display text-lg text-foreground hover:text-primary"
+          >
             {project.title}
-          </h3>
-          <span className="shrink-0 rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
-            {ITEM_TYPE_LABELS[project.item_type]}
-          </span>
+          </Link>
+          <StatusBadge status={project.status} />
         </div>
+        <p className="mt-1 text-xs font-medium text-muted">
+          {ITEM_TYPE_LABELS[project.item_type]}
+        </p>
         <dl className="mt-3 space-y-1 text-sm text-muted">
           {project.recipient_name && (
             <div className="flex gap-1">
