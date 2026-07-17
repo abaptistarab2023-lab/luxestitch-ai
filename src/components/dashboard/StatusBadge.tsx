@@ -5,6 +5,7 @@ const STATUS_STYLES: Record<ProjectStatusValue, string> = {
   submitted: "bg-primary/10 text-primary",
   quote_sent: "bg-accent/10 text-accent",
   approved: "bg-success-bg text-success",
+  declined: "bg-danger-bg text-danger",
   in_production: "bg-success-bg text-success",
   completed: "bg-success-bg text-success",
 };

@@ -6,6 +6,7 @@ import { StatusBadge } from "@/components/dashboard/StatusBadge";
 import { ProjectImage } from "@/components/dashboard/ProjectImage";
 import { DeleteProjectButton } from "@/components/projects/DeleteProjectButton";
 import { SubmitForQuoteForm } from "@/components/projects/SubmitForQuoteForm";
+import { QuoteDecisionForm } from "@/components/projects/QuoteDecisionForm";
 import {
   ITEM_TYPE_LABELS,
   CUSTOMER_EDITABLE_STATUSES,
@@ -13,6 +14,11 @@ import {
 } from "@/lib/validations/project";
 
 const SIGNED_URL_TTL_SECONDS = 60 * 60;
+
+function formatQuoteAmount(cents: number | null, currency: string): string {
+  if (cents === null) return "—";
+  return new Intl.NumberFormat("en-US", { style: "currency", currency }).format(cents / 100);
+}
 
 export default async function ProjectDetailPage({
   params,
@@ -139,6 +145,26 @@ export default async function ProjectDetailPage({
               initialFullName={contactFullName}
               initialPhone={contactPhone}
             />
+          )}
+
+          {project.quote_sent_at && (
+            <div className="rounded-2xl border border-border bg-muted-bg/40 p-5">
+              <p className="text-sm font-medium text-foreground">Your Quote</p>
+              <dl className="mt-3 grid gap-3 sm:grid-cols-2">
+                <Detail
+                  label="Amount"
+                  value={formatQuoteAmount(project.quote_amount_cents, project.quote_currency)}
+                />
+                <Detail label="Estimated Timeline" value={project.quote_timeline || "—"} />
+              </dl>
+              {project.quote_notes && (
+                <p className="mt-3 text-sm text-muted">{project.quote_notes}</p>
+              )}
+            </div>
+          )}
+
+          {project.status === "quote_sent" && (
+            <QuoteDecisionForm projectId={project.id} />
           )}
         </div>
       </Card>

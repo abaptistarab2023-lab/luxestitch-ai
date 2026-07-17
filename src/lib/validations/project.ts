@@ -54,6 +54,7 @@ export const PROJECT_STATUSES = [
   "submitted",
   "quote_sent",
   "approved",
+  "declined",
   "in_production",
   "completed",
 ] as const;
@@ -65,6 +66,7 @@ export const PROJECT_STATUS_LABELS: Record<ProjectStatusValue, string> = {
   submitted: "Submitted",
   quote_sent: "Quote Sent",
   approved: "Approved",
+  declined: "Declined",
   in_production: "In Production",
   completed: "Completed",
 };
@@ -78,13 +80,21 @@ export const CUSTOMER_DELETABLE_STATUSES: ProjectStatusValue[] = ["draft"];
 // The pilot's status flow is intentionally linear (no skipping, no going
 // backward) to keep the business process simple to reason about. Revisit
 // if a real workflow needs branches (e.g. "changes requested").
+//
+// quote_sent -> approved/declined is reachable two ways: the customer via
+// the dedicated /quote-decision route below (using this same table with
+// actor "customer"), or the admin manually overriding via the status
+// dropdown (a phone-approved order, say) — both converge on the same
+// state, deliberately. See ARCHITECTURE.md / v1.2 plan for why the manual
+// override was kept rather than removed.
 const CUSTOMER_TRANSITIONS: Partial<Record<ProjectStatusValue, ProjectStatusValue[]>> = {
   draft: ["submitted"],
+  quote_sent: ["approved", "declined"],
 };
 
 const ADMIN_TRANSITIONS: Partial<Record<ProjectStatusValue, ProjectStatusValue[]>> = {
   submitted: ["quote_sent"],
-  quote_sent: ["approved"],
+  quote_sent: ["approved", "declined"],
   approved: ["in_production"],
   in_production: ["completed"],
 };
@@ -117,3 +127,26 @@ export const adminUpdateStatusSchema = z.object({
   admin_notes: z.string().trim().max(4000).optional().or(z.literal("")),
 });
 export type AdminUpdateStatusInput = z.infer<typeof adminUpdateStatusSchema>;
+
+// Sending a quote is a status transition (-> quote_sent) plus the quote
+// data itself, submitted together through the same admin PATCH route as
+// adminUpdateStatusSchema above. quote_amount_cents is always an integer
+// here — the UI collects dollars and converts before this schema ever
+// sees the value, so there's exactly one place currency math happens.
+export const sendQuoteSchema = z.object({
+  quote_amount_cents: z
+    .number()
+    .int("Enter a whole number of cents")
+    .positive("Quote amount must be greater than zero"),
+  quote_timeline: z.string().trim().min(1, "Give the customer an estimated timeline").max(200),
+  quote_notes: z.string().trim().max(2000).optional().or(z.literal("")),
+});
+export type SendQuoteInput = z.infer<typeof sendQuoteSchema>;
+
+// The customer's response to a quote — the only field they can set is the
+// decision itself; the route derives the resulting status and timestamp
+// server-side rather than trusting a client-supplied status value.
+export const quoteDecisionSchema = z.object({
+  decision: z.enum(["accepted", "declined"]),
+});
+export type QuoteDecisionInput = z.infer<typeof quoteDecisionSchema>;
