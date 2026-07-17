@@ -2,11 +2,13 @@
 
 **Version 1.1.0 — Business Pilot**
 
-A personalized-embroidery gifting app for South Florida women (ages 28–60) shopping for monogrammed towels, linens, robes, and baby/wedding/baptism/luxury home gifts. Built with Next.js 15, TypeScript, Tailwind CSS, Supabase, and Firecrawl.
+The digital platform for a premium embroidery and personalization business, launching with **Luxury Linens** — South Florida women (ages 28–60) shopping for monogrammed towels, linens, robes, and baby/wedding/baptism/luxury home gifts. Built with Next.js 15, TypeScript, Tailwind CSS, Supabase, and Firecrawl. See [PRODUCT_ARCHITECTURE.md](PRODUCT_ARCHITECTURE.md) for the platform vision beyond this first line.
 
-- **[ARCHITECTURE.md](ARCHITECTURE.md)** — how the system is built and why
+- **[ARCHITECTURE.md](ARCHITECTURE.md)** — how the system is built and why (technical)
+- **[PRODUCT_ARCHITECTURE.md](PRODUCT_ARCHITECTURE.md)** — the target customer journey and business-domain model (product)
 - **[DEPLOYMENT.md](DEPLOYMENT.md)** — full setup and deploy instructions
 - **[PRODUCT_ROADMAP.md](PRODUCT_ROADMAP.md)** — what's shipped and what's next
+- **[BUSINESS_REVIEW.md](BUSINESS_REVIEW.md)** — standing CTO/PM audit: UX, security, scalability, risks
 - **[FINAL_REVIEW.md](FINAL_REVIEW.md)** — v1.0.0 production review: tests performed, known limitations, next steps
 
 Live at **[luxestitch-ai.vercel.app](https://luxestitch-ai.vercel.app)**.
@@ -39,14 +41,16 @@ You'll need a Supabase project (with the migrations in `supabase/migrations/` ap
 
 ```
 src/
-  app/            Routes: landing page, auth pages, dashboard, API routes
-  components/      landing/, auth/, dashboard/, projects/, ui/
+  app/            Routes: landing, auth, customer dashboard, admin dashboard,
+                  catalog, legal pages, and API routes
+  components/      landing/, auth/, admin/, dashboard/, projects/, ui/
   lib/
-    supabase/      Browser, server, and middleware Supabase clients
-    firecrawl/      Server-only Firecrawl wrapper
-    validations/    Zod schemas
+    supabase/      Browser, server, middleware, and admin-role Supabase clients
+    firecrawl/      Server-only Firecrawl wrapper and per-user rate limiter
+    validations/    Zod schemas and the project status state machine
     types/          Database types
-supabase/migrations/  SQL migrations (run manually in the Supabase SQL editor)
+supabase/migrations/  SQL migrations 0001–0007 (run manually in the Supabase SQL editor)
+tests/e2e/            Playwright end-to-end specs
 ```
 
-See **[ARCHITECTURE.md](ARCHITECTURE.md)** for the full request-flow and security model behind this structure.
+See **[ARCHITECTURE.md](ARCHITECTURE.md)** for the full request-flow, database schema, and security model behind this structure.

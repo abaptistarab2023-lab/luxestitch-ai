@@ -22,10 +22,25 @@ In the Supabase dashboard, open **SQL Editor** and run each file in `supabase/mi
 
 1. `0001_projects.sql` — creates the `projects` table, an index on `(user_id, created_at)`, and Row Level Security policies restricting all access to `auth.uid() = user_id`.
 2. `0002_storage_buckets.sql` — creates the private `inspiration-images` bucket (5MB size limit, image MIME types only) and matching storage RLS policies.
+3. `0003_project_lifecycle.sql` — adds `status`, `admin_notes`, `submitted_at`, `updated_at` to `projects`, plus the customer-scoped update/delete RLS policies (edit/delete only while a project is still a draft or freshly submitted).
+4. `0004_profiles_and_admin.sql` — creates `profiles` (one row per user, with an `is_admin` flag), the signup trigger that populates it, and admin-wide `select`/`update` policies on `projects`.
+5. `0005_catalog_products.sql` — creates the public `catalog_products` table (publicly readable where `is_active = true`; admin-only writes), decoupled from customers' private `projects`.
+6. `0006_firecrawl_rate_limit.sql` — creates `firecrawl_requests`, the log table backing per-user Firecrawl rate limiting.
+7. `0007_fix_admin_rls_recursion.sql` — replaces the admin-check subquery inside `0004`/`0005`'s policies with a `SECURITY DEFINER` function; without this, admin-gated queries fail with a Postgres infinite-recursion error (`42P17`). See `ARCHITECTURE.md`'s "Known gotchas" for why.
 
-Both migrations are written to be **safe to re-run**: `0001` uses `create table if not exists` / `create index if not exists`, and `0002`'s bucket insert uses `on conflict (id) do update`, so re-running it after a bucket-settings change (like the size/MIME-type limits added for v1.0) applies the new settings to an already-existing bucket instead of silently skipping.
+All seven migrations are written to be **safe to re-run**: they consistently use `if not exists` / `on conflict ... do update` / `drop ... if exists` patterns, so re-running the full sequence against an already-provisioned project applies any changed settings instead of erroring or silently skipping.
 
-> If your project was created before v1.0, re-run `0002_storage_buckets.sql` to pick up the new upload restrictions — the original migration only inserted the bucket if it didn't already exist.
+> If your project was created before a given migration existed, just run the migrations you're missing, in order — each one only touches what it specifically adds or changes.
+
+### Make yourself an admin
+
+After registering your own account through the app (so a `profiles` row exists for it), flip it to admin via the SQL Editor:
+
+```sql
+update public.profiles set is_admin = true where email = 'you@example.com';
+```
+
+There's no in-app way to grant admin access — this is deliberate for a single-owner pilot (see `ARCHITECTURE.md`'s security model).
 
 ## 3. Configure authentication
 
@@ -79,12 +94,14 @@ Open [http://localhost:3000](http://localhost:3000). Register an account, create
 
 ## 7. Post-deploy verification checklist
 
-- [ ] Landing page loads and renders correctly on mobile and desktop
+- [ ] Landing page and public `/catalog` load and render correctly on mobile and desktop, with no login required for either
 - [ ] Register a new account on the production URL; confirm the email flow (or direct session, if confirmation is off) works
-- [ ] Visiting `/dashboard` while logged out redirects to `/login`
+- [ ] Visiting `/dashboard` or `/admin` while logged out redirects to `/login`
 - [ ] Create a project using the Firecrawl URL-import flow; confirm the extracted fields are editable and save correctly
 - [ ] Create a project with an uploaded inspiration image; confirm it renders on the dashboard
-- [ ] Log in as a second account and confirm the first account's projects are **not** visible (RLS check)
+- [ ] Edit and delete a draft project; confirm both are blocked once its status moves past `submitted`
+- [ ] Submit a project for quote; confirm it appears in `/admin` for the admin account and status updates there reflect back in the customer's dashboard
+- [ ] Log in as a non-admin second account and confirm `/admin` redirects away, and the first account's projects are **not** visible anywhere (RLS check)
 - [ ] Open browser DevTools → Network on the production site and confirm `FIRECRAWL_API_KEY` never appears in any request
 
 ## Rollback
@@ -93,6 +110,6 @@ Vercel keeps every previous deployment. To roll back: **Deployments** tab → fi
 
 ## Monitoring
 
-- **Application logs**: Vercel dashboard → your project → **Logs** (real-time function logs, including our two API routes).
+- **Application logs**: Vercel dashboard → your project → **Logs** (real-time function logs, including the customer, admin, and Firecrawl API routes).
 - **Database/auth activity**: Supabase dashboard → **Logs** section (Postgres logs, Auth logs, Storage logs).
 - **Security posture**: Supabase dashboard → **Advisors → Security** flags any RLS or configuration issues Supabase detects automatically.

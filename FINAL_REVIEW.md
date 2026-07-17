@@ -4,7 +4,7 @@ Date: 2026-07-12
 Production URL: https://luxestitch-ai.vercel.app
 Repository: https://github.com/abaptistarab2023-lab/luxestitch-ai (tag `v1.0.0`)
 
-This document is the closing record for the v1.0.0 MVP: what was built, how it's built, what was tested before calling it done, and what's known to be incomplete.
+This document is the closing record for the v1.0.0 MVP: what was built, how it's built, what was tested before calling it done, and what's known to be incomplete. **It's a historical snapshot, not a living status page** — most items under "Known limitations" below (contrast, edit/delete, security headers, rate limiting, automated tests) were resolved in the v1.1.0 Business Pilot release; see [ARCHITECTURE.md](ARCHITECTURE.md) and [PRODUCT_ROADMAP.md](PRODUCT_ROADMAP.md) for current state.
 
 ## What was built
 
