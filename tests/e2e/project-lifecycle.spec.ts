@@ -13,6 +13,11 @@ test("edit a draft, then submit it for quote and confirm it locks", async ({
   await page.waitForURL("**/dashboard/new");
   await page.getByLabel("Project Title").fill("Lifecycle Test Robe");
   await page.getByRole("button", { name: "Save Project" }).click();
+
+  // Creating a project lands back on the list (unlike editing, which
+  // redirects straight to the detail page) — see ProjectForm.tsx.
+  await page.waitForURL("**/dashboard");
+  await page.getByRole("link", { name: "Lifecycle Test Robe" }).click();
   await page.waitForURL(/\/dashboard\/projects\/.+/);
 
   const projectUrl = page.url();

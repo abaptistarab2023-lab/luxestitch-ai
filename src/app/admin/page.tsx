@@ -95,7 +95,14 @@ export default async function AdminProjectsPage({
                       {profile?.full_name || profile?.email || "Unknown customer"}
                     </p>
                   </div>
-                  <StatusBadge status={project.status} />
+                  <div className="flex items-center gap-2">
+                    {project.status === "submitted" && (
+                      <span className="inline-flex shrink-0 items-center rounded-full bg-accent/10 px-3 py-1 text-xs font-medium text-accent">
+                        Needs Quote
+                      </span>
+                    )}
+                    <StatusBadge status={project.status} />
+                  </div>
                 </Card>
               </Link>
             );

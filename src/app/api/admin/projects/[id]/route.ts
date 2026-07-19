@@ -1,7 +1,12 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { getAdminCheck } from "@/lib/supabase/admin";
-import { adminUpdateStatusSchema, isValidStatusTransition } from "@/lib/validations/project";
+import {
+  adminUpdateStatusSchema,
+  sendQuoteSchema,
+  isValidStatusTransition,
+} from "@/lib/validations/project";
+import type { ProjectUpdate } from "@/lib/types/database";
 
 export async function PATCH(
   request: Request,
@@ -48,9 +53,28 @@ export async function PATCH(
     );
   }
 
+  const update: ProjectUpdate = { status, admin_notes: admin_notes || null };
+
+  // Sending (or revising) a quote rides along on this same route rather
+  // than a separate endpoint — it's still just "admin updates a project,"
+  // and status/notes/quote data are edited from the same form.
+  if (status === "quote_sent") {
+    const quoteParsed = sendQuoteSchema.safeParse(body);
+    if (!quoteParsed.success) {
+      return NextResponse.json(
+        { error: "Enter a quote amount and timeline before sending." },
+        { status: 400 }
+      );
+    }
+    update.quote_amount_cents = quoteParsed.data.quote_amount_cents;
+    update.quote_timeline = quoteParsed.data.quote_timeline;
+    update.quote_notes = quoteParsed.data.quote_notes || null;
+    update.quote_sent_at = new Date().toISOString();
+  }
+
   const { data, error } = await supabase
     .from("projects")
-    .update({ status, admin_notes: admin_notes || null })
+    .update(update)
     .eq("id", id)
     .select()
     .maybeSingle();

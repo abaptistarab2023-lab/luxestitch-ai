@@ -15,6 +15,11 @@ test("a second user cannot open the first user's project detail page", async ({
   await ownerPage.waitForURL("**/dashboard/new");
   await ownerPage.getByLabel("Project Title").fill("Private Project");
   await ownerPage.getByRole("button", { name: "Save Project" }).click();
+
+  // Creating a project lands back on the list (unlike editing, which
+  // redirects straight to the detail page) — see ProjectForm.tsx.
+  await ownerPage.waitForURL("**/dashboard");
+  await ownerPage.getByRole("link", { name: "Private Project" }).click();
   await ownerPage.waitForURL(/\/dashboard\/projects\/.+/);
   const privateProjectUrl = ownerPage.url();
   await ownerContext.close();

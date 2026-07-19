@@ -185,6 +185,10 @@ export function ProjectForm({
       }
 
       router.push(isEdit ? `/dashboard/projects/${project.id}` : "/dashboard");
+      // /dashboard was already visited right after login, so its Router
+      // Cache entry is stale — without this, the new project doesn't show
+      // up until a manual reload.
+      router.refresh();
     } catch {
       setSaveError("We couldn't save your project. Please try again.");
       setSaving(false);

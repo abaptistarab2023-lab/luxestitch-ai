@@ -5,7 +5,13 @@ import { Card } from "@/components/ui";
 import { StatusBadge } from "@/components/dashboard/StatusBadge";
 import { ProjectImage } from "@/components/dashboard/ProjectImage";
 import { AdminStatusForm } from "@/components/admin/AdminStatusForm";
+import { AdminQuoteForm } from "@/components/admin/AdminQuoteForm";
 import { ITEM_TYPE_LABELS } from "@/lib/validations/project";
+
+function formatQuoteAmount(cents: number | null, currency: string): string {
+  if (cents === null) return "—";
+  return new Intl.NumberFormat("en-US", { style: "currency", currency }).format(cents / 100);
+}
 
 const SIGNED_URL_TTL_SECONDS = 60 * 60;
 
@@ -122,6 +128,53 @@ export default async function AdminProjectDetailPage({
               )}
             </dl>
           </Card>
+
+          {project.quote_sent_at && (
+            <Card className="p-6">
+              <p className="text-sm font-medium text-foreground">Quote</p>
+              <dl className="mt-3 space-y-2 text-sm">
+                <Detail
+                  label="Amount"
+                  value={formatQuoteAmount(project.quote_amount_cents, project.quote_currency)}
+                />
+                <Detail label="Timeline" value={project.quote_timeline || "—"} />
+                {project.quote_notes && (
+                  <Detail label="Note to Customer" value={project.quote_notes} />
+                )}
+                <Detail
+                  label="Sent"
+                  value={new Date(project.quote_sent_at).toLocaleDateString()}
+                />
+                {project.quote_decision && (
+                  <Detail
+                    label="Customer Response"
+                    value={
+                      project.quote_decision === "accepted"
+                        ? "Accepted"
+                        : "Declined"
+                    }
+                  />
+                )}
+                {project.quote_decided_at && (
+                  <Detail
+                    label="Responded"
+                    value={new Date(project.quote_decided_at).toLocaleDateString()}
+                  />
+                )}
+              </dl>
+            </Card>
+          )}
+
+          {(project.status === "submitted" || project.status === "quote_sent") && (
+            <AdminQuoteForm
+              projectId={project.id}
+              currentAdminNotes={project.admin_notes ?? ""}
+              quoteAmountCents={project.quote_amount_cents}
+              quoteTimeline={project.quote_timeline}
+              quoteNotes={project.quote_notes}
+              isRevision={project.status === "quote_sent"}
+            />
+          )}
 
           <AdminStatusForm
             projectId={project.id}

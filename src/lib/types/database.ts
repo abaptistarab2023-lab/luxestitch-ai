@@ -21,8 +21,21 @@ export type ProjectStatus =
   | "submitted"
   | "quote_sent"
   | "approved"
+  | "declined"
   | "in_production"
   | "completed";
+
+export type BusinessLine =
+  | "luxury_linens"
+  | "personalized_gifts"
+  | "baby_collection"
+  | "wedding_collection"
+  | "hospitality"
+  | "corporate_apparel"
+  | "dtf_printing"
+  | "embroidery_services";
+
+export type QuoteDecision = "accepted" | "declined";
 
 export type ProjectRow = {
   id: string;
@@ -43,13 +56,35 @@ export type ProjectRow = {
   status: ProjectStatus;
   admin_notes: string | null;
   submitted_at: string | null;
+  business_line: BusinessLine;
+  quote_amount_cents: number | null;
+  quote_currency: string;
+  quote_timeline: string | null;
+  quote_notes: string | null;
+  quote_sent_at: string | null;
+  quote_decision: QuoteDecision | null;
+  quote_decided_at: string | null;
   created_at: string;
   updated_at: string;
 };
 
 export type ProjectInsert = Omit<
   ProjectRow,
-  "id" | "created_at" | "updated_at" | "user_id" | "status" | "admin_notes" | "submitted_at"
+  | "id"
+  | "created_at"
+  | "updated_at"
+  | "user_id"
+  | "status"
+  | "admin_notes"
+  | "submitted_at"
+  | "business_line"
+  | "quote_amount_cents"
+  | "quote_currency"
+  | "quote_timeline"
+  | "quote_notes"
+  | "quote_sent_at"
+  | "quote_decision"
+  | "quote_decided_at"
 > & {
   id?: string;
   created_at?: string;
@@ -58,6 +93,14 @@ export type ProjectInsert = Omit<
   status?: ProjectStatus;
   admin_notes?: string | null;
   submitted_at?: string | null;
+  business_line?: BusinessLine;
+  quote_amount_cents?: number | null;
+  quote_currency?: string;
+  quote_timeline?: string | null;
+  quote_notes?: string | null;
+  quote_sent_at?: string | null;
+  quote_decision?: QuoteDecision | null;
+  quote_decided_at?: string | null;
 };
 
 export type ProjectUpdate = Partial<ProjectRow>;
