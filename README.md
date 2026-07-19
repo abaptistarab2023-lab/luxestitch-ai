@@ -10,6 +10,7 @@ The digital platform for a premium embroidery and personalization business, laun
 - **[PRODUCT_ROADMAP.md](PRODUCT_ROADMAP.md)** — what's shipped and what's next
 - **[BUSINESS_REVIEW.md](BUSINESS_REVIEW.md)** — standing CTO/PM audit: UX, security, scalability, risks
 - **[FINAL_REVIEW.md](FINAL_REVIEW.md)** — v1.0.0 production review: tests performed, known limitations, next steps
+- **[RELEASE_REPORT_v1.2.0.md](RELEASE_REPORT_v1.2.0.md)** — v1.2.0 release report: QA findings, production verification, sign-off
 - **[CHANGELOG.md](CHANGELOG.md)** — release history
 
 Live at **[luxestitch-ai.vercel.app](https://luxestitch-ai.vercel.app)**.
