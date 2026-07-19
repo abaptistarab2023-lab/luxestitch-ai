@@ -1,6 +1,6 @@
 # Architecture
 
-Technical reference for how LuxeStitch AI is built, current through the v1.1.0 Business Pilot release. For setup/deploy steps see [README.md](README.md) and [DEPLOYMENT.md](DEPLOYMENT.md). For what's planned next see [PRODUCT_ROADMAP.md](PRODUCT_ROADMAP.md); for the target customer journey and business-domain model see [PRODUCT_ARCHITECTURE.md](PRODUCT_ARCHITECTURE.md).
+Technical reference for how LuxeStitch AI is built, current through the v1.2.0 Close the Loop (Phase 1) release. For setup/deploy steps see [README.md](README.md) and [DEPLOYMENT.md](DEPLOYMENT.md). For what's planned next see [PRODUCT_ROADMAP.md](PRODUCT_ROADMAP.md); for the target customer journey and business-domain model see [PRODUCT_ARCHITECTURE.md](PRODUCT_ARCHITECTURE.md).
 
 ## Overview
 

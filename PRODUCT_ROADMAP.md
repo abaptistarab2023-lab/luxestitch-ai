@@ -62,10 +62,20 @@ Everything shipped in v1.0 and v1.1 was built single-line (Luxury Linens implici
 
 ## v1.2 — Close the Loop (Luxury Linens only)
 
-Turns the pilot into a business a customer would trust with a real purchase — no payments yet. Scoped entirely to Luxury Linens; this is where the business-line groundwork from above gets laid, invisibly, alongside the customer-facing work.
+Turns the pilot into a business a customer would trust with a real purchase — no payments yet. Scoped entirely to Luxury Linens; this is where the business-line groundwork from above gets laid, invisibly, alongside the customer-facing work. Split into phases so the highest-leverage piece — a real price ever reaching the customer — could ship on its own rather than waiting on messaging and photography.
 
-- Quote workflow: price/timeline field, an admin quote builder, a customer-visible quote, Accept/Decline/Ask-a-Question
-- In-app message thread per project
+### v1.2.0 — Phase 1: the quote itself (shipped)
+
+- Quote workflow: price/timeline/note field, an admin quote builder, a customer-visible quote, Accept/Decline
+- Status transitions (`submitted → quote_sent → approved/declined`) enforced by both an explicit transition table and RLS
+- Introduced the `business_line` field (Luxury Linens as its only value for now) across projects and catalog items — invisible groundwork for v2.0's second line, not new surface area for this release
+- Fixed a dashboard-scoping bug found in QA: an admin's own `/dashboard` was showing every customer's projects instead of just their own
+
+### Phase 2 & 3 — planned, not yet built
+
+The rest of the original v1.2 scope. Deliberately deferred until Phase 1 was confirmed working in production, and not started without separate approval:
+
+- **Ask-a-Question** on a sent quote, and an in-app message thread per project
 - Inspiration Gallery v1 (admin-curated finished-project photos, filterable, each linking back into the Project Builder)
 - Catalog: owned photography and copy, replacing the hotlinked supplier images used in the pilot
 - Customer account: a real settings page, plus a structured monogram/thread-color picker replacing free text
@@ -73,7 +83,6 @@ Turns the pilot into a business a customer would trust with a real purchase — 
 - Production: a simple, customer-visible checklist (received → in progress → quality check → packaged)
 - Basic email notifications on quote-ready, new-message, and status-change events — blocked on choosing a custom SMTP provider
 - Custom favicon and a real logo mark
-- Introduce the `business_line` field (Luxury Linens as its only value for now) across projects, catalog items, and the admin view
 
 ## v2.0 — Commerce, Production at Scale, and the Second Business Line
 

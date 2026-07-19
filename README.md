@@ -1,6 +1,6 @@
 # LuxeStitch AI
 
-**Version 1.1.0 — Business Pilot**
+**Version 1.2.0 — Close the Loop (Phase 1)**
 
 The digital platform for a premium embroidery and personalization business, launching with **Luxury Linens** — South Florida women (ages 28–60) shopping for monogrammed towels, linens, robes, and baby/wedding/baptism/luxury home gifts. Built with Next.js 15, TypeScript, Tailwind CSS, Supabase, and Firecrawl. See [PRODUCT_ARCHITECTURE.md](PRODUCT_ARCHITECTURE.md) for the platform vision beyond this first line.
 
@@ -10,6 +10,7 @@ The digital platform for a premium embroidery and personalization business, laun
 - **[PRODUCT_ROADMAP.md](PRODUCT_ROADMAP.md)** — what's shipped and what's next
 - **[BUSINESS_REVIEW.md](BUSINESS_REVIEW.md)** — standing CTO/PM audit: UX, security, scalability, risks
 - **[FINAL_REVIEW.md](FINAL_REVIEW.md)** — v1.0.0 production review: tests performed, known limitations, next steps
+- **[CHANGELOG.md](CHANGELOG.md)** — release history
 
 Live at **[luxestitch-ai.vercel.app](https://luxestitch-ai.vercel.app)**.
 
@@ -21,8 +22,9 @@ Live at **[luxestitch-ai.vercel.app](https://luxestitch-ai.vercel.app)**.
 - Create a personalization project by pasting a product URL — Firecrawl extracts the title, description, and image server-side
 - Optional inspiration image upload (Supabase Storage)
 - Review and edit extracted details before saving
-- Full project lifecycle: edit and delete drafts, **Submit for Quote**, and business-side status tracking (draft → submitted → quote sent → approved → in production → completed)
-- A protected **/admin** dashboard for the business to review submitted projects, customer contact details, and update status/notes
+- Full project lifecycle: edit and delete drafts, **Submit for Quote**, and business-side status tracking (draft → submitted → quote sent → approved/declined → in production → completed)
+- A real quote workflow: the admin sends a price, timeline, and note; the customer sees it and accepts or declines, with the resulting status change enforced by both an explicit transition table and Row Level Security
+- A protected **/admin** dashboard for the business to review submitted projects, customer contact details, and update status/notes — scoped separately from each user's own **/dashboard**, so an admin's personal project list never shows customer data
 - Per-user rate limiting on the Firecrawl import endpoint
 - Security headers (CSP, X-Frame-Options, etc.) and an automated test suite (Vitest + Playwright)
 - Projects are saved to Postgres with Row Level Security, so each user only ever sees their own projects
