@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { ProjectCard } from "@/components/dashboard/ProjectCard";
 import { EmptyState } from "@/components/dashboard/EmptyState";
@@ -9,10 +10,24 @@ const SIGNED_URL_TTL_SECONDS = 60 * 60;
 
 export default async function DashboardPage() {
   const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
+  if (!user) {
+    redirect("/login");
+  }
+
+  // Explicitly scoped to the caller, not left to RLS alone: the "Admins can
+  // view all projects" policy (0004) is unbounded by design so /admin can
+  // list every customer's submissions, but that means an unscoped query
+  // here would show an admin every project in the database instead of
+  // just their own. This filter is what makes "your projects" true for
+  // every caller, admin or not.
   const { data: projects, error } = await supabase
     .from("projects")
     .select("*")
+    .eq("user_id", user.id)
     .order("created_at", { ascending: false })
     .returns<ProjectRow[]>();
 
