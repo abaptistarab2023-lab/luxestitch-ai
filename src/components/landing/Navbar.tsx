@@ -22,7 +22,7 @@ export function Navbar() {
             Log In
           </Link>
           <Link href="/register">
-            <Button className="px-5 py-2 text-sm">Get Started</Button>
+            <Button className="px-5 py-2 text-sm">Start Designing</Button>
           </Link>
         </nav>
       </div>

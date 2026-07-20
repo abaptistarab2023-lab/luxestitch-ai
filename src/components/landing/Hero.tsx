@@ -10,28 +10,31 @@ export function Hero() {
             South Florida&rsquo;s Personalized Embroidery Studio
           </p>
           <h1 className="font-display text-4xl leading-tight text-foreground sm:text-5xl">
-            Turn everyday linens into treasured, personalized gifts.
+            Create Something They&rsquo;ll Treasure Forever
           </h1>
           <p className="mt-6 max-w-lg text-lg text-muted">
-            LuxeStitch AI is built for South Florida women, ages 28&ndash;60,
-            who want beautifully monogrammed towels, linens, robes, and
-            keepsake gifts for weddings, baptisms, babies, and the moments
-            that matter &mdash; without the back-and-forth of a traditional
-            order.
+            Premium Personalized Embroidery for Life&rsquo;s Most Meaningful
+            Moments.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <Link href="/register">
               <Button className="px-8 py-3.5 text-base">
-                Start Your Project
+                Start Designing
               </Button>
             </Link>
             <Link
-              href="/login"
-              className="text-sm font-medium text-foreground hover:text-primary"
+              href="/catalog"
+              className="text-base font-medium text-foreground hover:text-primary"
             >
-              Already a member? Log in &rarr;
+              Browse the Collection &rarr;
             </Link>
           </div>
+          <Link
+            href="/login"
+            className="mt-4 inline-block text-sm font-medium text-muted hover:text-primary"
+          >
+            Already a member? Log in &rarr;
+          </Link>
         </div>
         <div className="relative aspect-[4/5] w-full overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-primary/15 via-muted-bg to-accent/15">
           <div className="absolute inset-0 flex items-center justify-center p-10 text-center">
