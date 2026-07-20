@@ -12,6 +12,7 @@ The digital platform for a premium embroidery and personalization business, laun
 - **[FINAL_REVIEW.md](FINAL_REVIEW.md)** — v1.0.0 production review: tests performed, known limitations, next steps
 - **[RELEASE_REPORT_v1.2.0.md](RELEASE_REPORT_v1.2.0.md)** — v1.2.0 release report: QA findings, production verification, sign-off
 - **[USER_PILOT_PLAN_v1.2.0.md](USER_PILOT_PLAN_v1.2.0.md)** — controlled pilot plan gating v1.3 scope
+- **[PILOT_FINDINGS_v1.2.0.md](PILOT_FINDINGS_v1.2.0.md)** — findings log from the pilot, including one open Blocker
 - **[CHANGELOG.md](CHANGELOG.md)** — release history
 
 Live at **[luxestitch-ai.vercel.app](https://luxestitch-ai.vercel.app)**.
