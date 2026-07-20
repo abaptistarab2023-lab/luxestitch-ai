@@ -1,10 +1,15 @@
 # Homepage Messaging Redesign
 
-Status: proposal — content and structure only, not implemented
-Scope: `src/app/page.tsx` and its five sections (`Navbar`, `Hero`, `ICPSection`, `GiftCategoryGrid`, `CTABanner`, `Footer`) — reviewed in full below, current copy quoted verbatim from source
-**No code changed to produce this document. No code should change until this direction is reviewed and approved.**
+Status: **locked and implemented** — see "Implementation" at the bottom for what shipped and what's still pending real content
+Scope: `src/app/page.tsx` and its five sections (`Navbar`, `Hero`, `ICPSection`, `GiftCategoryGrid`, `CTABanner`, `Footer`) — reviewed in full below, current copy quoted verbatim from source at the time each revision was written
 
-**Revision**: primary and secondary CTA copy are now locked — **"Start Designing"** (primary) and **"Browse the Collection"** (secondary) — used consistently everywhere a CTA appears below. This revision also passes back through every section's wording with one added filter: does this sentence read like a boutique atelier speaking to a client, or like software talking to a user? Any line that leaned toward the latter (see the "How It Works" steps and the closing banner in particular) has been rewritten.
+**Revision 2 — core positioning locked**: the homepage's single governing line is now **"Premium Personalized Embroidery for Life's Most Meaningful Moments."** Every section below is written to reinforce that one sentence, not just avoid contradicting it. Two copy elements are now fixed exactly, not proposals to test:
+- **Hero headline**: "Create Something They'll Treasure Forever"
+- **Hero subtitle**: "Premium Personalized Embroidery for Life's Most Meaningful Moments."
+
+The occasion list this positioning must cover also expanded from the original six to the platform's full intended range: **Weddings, Babies, Baptisms, Family Gifts, Luxury Home Linens, Hospitality Collections, Corporate Gifts, Personal Keepsakes.** Two of these — Hospitality Collections and Corporate Gifts — are brand-positioning statements about where LuxeStitch is headed (per `PRODUCT_ARCHITECTURE.md`'s multi-business-line vision), not claims about what's orderable today; the only `business_line` live in the schema is `luxury_linens`. See "Moments We Celebrate" below for how this section is scoped to stay honest about that distinction without hiding the ambition.
+
+**Revision 1 — locked CTA copy and boutique-voice pass**: primary and secondary CTA copy are locked — **"Start Designing"** (primary) and **"Browse the Collection"** (secondary) — used consistently everywhere a CTA appears below. This revision also passed back through every section's wording with one filter: does this sentence read like a boutique atelier speaking to a client, or like software talking to a user? Any line that leaned toward the latter (the "How It Works" steps, the closing banner) was rewritten.
 
 ## Why this is changing
 
@@ -16,8 +21,10 @@ This redesign keeps every factual claim the current page makes (the product cate
 
 A short rule set to keep every section consistent, since voice drifts fastest at the sentence level:
 
-**Use**: stitched, woven, heirloom, keepsake, by hand, cherished, carried, remembered, monogram, thread, occasion, someone you love, forever, design, atelier-adjacent verbs (choose, gather, bring)
-**Avoid**: personalization project, platform, streamline, user, dashboard (in customer-facing copy — it's fine in the product UI itself), leverage, seamless, solution, ICP-coded phrasing ("busy professionals," "modern woman"), form, fill out, submit, account (as the headline action — "create an account" is a software task; "start designing" is what the visitor is actually there to do), "get started" (says nothing about what starts)
+**Use**: stitched, woven, heirloom, keepsake, by hand, cherished, carried, remembered, monogram, thread, occasion, someone you love, forever, design, premium, timeless, treasure, atelier-adjacent verbs (choose, gather, bring)
+**Avoid**: software, platform, AI application, personalization project, streamline, user, dashboard (in customer-facing copy — it's fine in the product UI itself), leverage, seamless, solution, ICP-coded phrasing ("busy professionals," "modern woman"), form, fill out, submit, account (as the headline action — "create an account" is a software task; "start designing" is what the visitor is actually there to do), "get started" (says nothing about what starts)
+
+**On "AI"**: the product's technical name is LuxeStitch AI, and the underlying capability (Firecrawl-assisted product import) is real — but AI is never the headline, never the hero, never the reason a visitor should care. It's a supporting detail, mentioned (if at all) the way a boutique might mention "we photograph every piece before it ships" — a quiet operational fact, not the pitch. Every section below leads with craftsmanship and emotion; none leads with the technology.
 
 **Sentence rhythm**: short declarative sentences for headlines and emotional beats; one longer, warmer sentence for explanation. Luxury copy breathes — it doesn't cram three benefits into one sentence.
 
@@ -41,21 +48,17 @@ A short rule set to keep every section consistent, since voice drifts fastest at
 >
 > *(hero image area currently just holds the quote: "A monogram is a small detail that makes a gift unforgettable.")*
 
-### Proposed headline
+### Locked headline
 
-**"Stitched with love, for the people who matter most."**
+**"Create Something They'll Treasure Forever"**
 
-Alternates, in case this needs to be tested against a few directions:
-- "A name, a date, a memory — stitched in by hand."
-- "Every gift deserves a story stitched into it."
+Names the outcome (something treasured, kept forever) rather than the object (linens) or the audience (South Florida women) — true regardless of which occasion or product category a visitor came for.
 
-The recommended headline works because it does two things the current one doesn't: it names the *emotion* (love) before the *object* (linens), and it's true regardless of which occasion or product category a visitor came for — it doesn't need "towels" or "linens" in it to make sense.
+### Locked subtitle
 
-### Proposed subtitle
+**"Premium Personalized Embroidery for Life's Most Meaningful Moments."**
 
-*"From a baby's first blanket to the linens on your wedding night, LuxeStitch turns everyday keepsakes into heirlooms — hand-embroidered with the names, dates, and details that make a gift unforgettable. Whether it's for someone you love, or for yourself."*
-
-Replaces the demographic description with occasion range and relationship framing (for someone you love / for yourself), directly reflecting the full list of moments named in this redesign's brief — weddings, baptisms, babies, anniversaries, luxury home, and self-gifting, none of which need "South Florida women, ages 28–60" to be understood.
+This is now the homepage's single governing line — every other section is written to reinforce it, not just avoid contradicting it. It replaces the demographic description entirely and states the positioning directly: premium (not mass-produced), personalized (not generic), embroidery (the actual craft, named plainly), for meaningful moments (the reason it matters) — with no reference to who's buying, only to what's being made and why.
 
 ### The current hero-image quote
 
@@ -84,28 +87,32 @@ Two side-by-side lists under **"Who LuxeStitch AI is for"** and **"The problem w
 
 This entire section is written from the *business's* point of view (who our customer is, what our software fixes) rather than the *customer's*. It's the clearest instance of demographic-first framing on the page.
 
-### Proposed: "Moments We Celebrate"
+### Locked: "Moments We Celebrate"
 
-Replace both lists with a single occasion-led section — this is where the brief's full list of moments (for yourself, for someone you love, weddings, baptisms, babies, anniversaries, luxury home linens, memorable gifts) becomes the actual content, not background research:
+Replace both lists with a single occasion-led section carrying the full eight-line range this positioning now covers:
 
 > **Every stitch marks a moment.**
 >
-> A wedding morning. A baby's first blanket. A baptism gown that gets handed down. An anniversary you want remembered. A home that feels like *yours*. Or simply a gift to yourself, because some moments deserve to be marked.
+> A wedding morning. A baby's first blanket. A baptism gown that gets handed down. A home that feels like *yours*. A welcome a guest remembers. A gift that says more than a card ever could. Or simply something for yourself, because some moments deserve to be marked.
 >
 > Whatever you're celebrating, LuxeStitch turns it into something you can hold onto.
 
-Presented as six short emotional tiles (not bullet points), one per moment, each with a one-line description:
+Presented as eight short emotional tiles (not bullet points, not links — this section states the promise, it doesn't navigate anywhere; browsing happens in the Gift Category Grid below):
 
 | Moment | Line |
 |---|---|
 | Weddings | "For the couple, the wedding party, and every 'yes' in between." |
-| New Babies | "Soft enough for the first blanket, personal enough to keep forever." |
-| Baptisms & Christenings | "A keepsake that carries a name into the family it belongs to." |
-| Anniversaries | "Mark the years with something that lasts as long as they have." |
-| Home & Everyday Luxury | "Linens that feel like they were always meant to be yours." |
-| For Yourself | "You don't need an occasion to deserve something beautiful." |
+| Babies | "Soft enough for the first blanket, personal enough to keep forever." |
+| Baptisms | "A keepsake that carries a name into the family it belongs to." |
+| Family Gifts | "The kind of gift that gets handed down, not used up." |
+| Luxury Home Linens | "Linens that feel like they were always meant to be yours." |
+| Hospitality Collections | "For hotels and stays that want their linens to feel like home." |
+| Corporate Gifts | "Thoughtful and personal, even at scale." |
+| Personal Keepsakes | "You don't need an occasion to deserve something beautiful." |
 
-The functional content currently in "The problem we solve" (paste-a-link import, no guessing on fonts/colors, one place to save projects) isn't lost — it's more honestly a "How It Works" explanation than a problem statement, and belongs in the new trust section below, described as a benefit rather than a complaint about the old way of doing things.
+**A note on scope**: Hospitality Collections and Corporate Gifts describe where LuxeStitch is headed as a platform (see `PRODUCT_ARCHITECTURE.md`'s multi-business-line vision), not a claim that either is orderable today — only Luxury Linens has live products. That's exactly why this section is emotional positioning rather than a navigation grid: it can honestly state the brand's full ambition without implying a working checkout flow that doesn't exist yet. The Gift Category Grid below, by contrast, only shows categories with real catalog products behind them.
+
+The functional content that used to live in "The problem we solve" (paste-a-link import, no guessing on fonts/colors, one place to save projects) isn't lost — it's more honestly a "How It Works" explanation than a problem statement, and belongs in the trust section proposed below (not yet built — see "Implementation" at the bottom), described as a benefit rather than a complaint about the old way of doing things.
 
 ---
 
@@ -205,6 +212,10 @@ This document proposes structure and placeholder copy; several pieces need real 
 3. **Real photography** of finished embroidered pieces, to replace the current gradient hero panel.
 4. **A decision on "AI" in the brand name**, since it sits in tension with every emotional headline this document proposes (see "Brand voice principles" above).
 
-## Not in scope / not implemented
+## Implementation
 
-This document is copy and structure only. No component in `src/components/landing/` or `src/app/page.tsx` has been changed. Implementation should wait for explicit sign-off on direction, and — consistent with [USER_PILOT_PLAN_v1.2.0.md](USER_PILOT_PLAN_v1.2.0.md)'s existing gate — shouldn't compete with resolving [PILOT_FINDINGS_v1.2.0.md](PILOT_FINDINGS_v1.2.0.md)'s open Blocker (Finding 004, admin email notification), which remains the higher-priority fix.
+**Shipped** (on a feature branch, pending review before merge — see the branch's own commit history for exact diffs): the locked headline and subtitle in `Hero.tsx`; the dual "Start Designing" / "Browse the Collection" CTA pattern in `Hero.tsx` and `CTABanner.tsx`; the "Start Designing" label in `Navbar.tsx`; the "Moments We Celebrate" eight-tile section replacing `ICPSection.tsx`; and refreshed heading copy in `GiftCategoryGrid.tsx`. All changes are copy and section-content only — no new components, no changes to the existing design system (`Card`, `Button`, existing Tailwind tokens all reused as-is), no changes outside `src/components/landing/` and `src/app/page.tsx`.
+
+**Not yet built**, because their content dependencies are still unmet (see "What this needs from the business" above): the storytelling section (§4) and the trust-building section (§5) — including its "How It Works" copy, which doesn't strictly need real content but was left for the same implementation pass as the two sections it's grouped with, to avoid landing a partial trust section now and revising it again once pricing/testimonials exist. The Hero's image panel also still holds a gradient placeholder, not real photography, unchanged from before this revision.
+
+This remains subordinate to [PILOT_FINDINGS_v1.2.0.md](PILOT_FINDINGS_v1.2.0.md)'s open Blocker (Finding 004, admin email notification) per [USER_PILOT_PLAN_v1.2.0.md](USER_PILOT_PLAN_v1.2.0.md) §8 — this homepage work shipping on its own branch doesn't change that Finding 004 is still the higher-priority fix for `master`.
