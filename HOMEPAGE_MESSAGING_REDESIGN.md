@@ -4,6 +4,8 @@ Status: proposal — content and structure only, not implemented
 Scope: `src/app/page.tsx` and its five sections (`Navbar`, `Hero`, `ICPSection`, `GiftCategoryGrid`, `CTABanner`, `Footer`) — reviewed in full below, current copy quoted verbatim from source
 **No code changed to produce this document. No code should change until this direction is reviewed and approved.**
 
+**Revision**: primary and secondary CTA copy are now locked — **"Start Designing"** (primary) and **"Browse the Collection"** (secondary) — used consistently everywhere a CTA appears below. This revision also passes back through every section's wording with one added filter: does this sentence read like a boutique atelier speaking to a client, or like software talking to a user? Any line that leaned toward the latter (see the "How It Works" steps and the closing banner in particular) has been rewritten.
+
 ## Why this is changing
 
 The current homepage leads with a demographic description — *"LuxeStitch AI is built for South Florida women, ages 28–60"* — rather than the reason any of those women would actually want what's being sold. A demographic is market-research language; nobody feels moved by being accurately profiled. What actually motivates a purchase here is the thing [BUSINESS_REVIEW.md](BUSINESS_REVIEW.md) already named as the product's real strength: *"a monogram is a small detail that makes a gift unforgettable."* That line is currently buried as decorative hero-image text. It should be the argument the whole page makes.
@@ -14,8 +16,8 @@ This redesign keeps every factual claim the current page makes (the product cate
 
 A short rule set to keep every section consistent, since voice drifts fastest at the sentence level:
 
-**Use**: stitched, woven, heirloom, keepsake, by hand, cherished, carried, remembered, monogram, thread, occasion, someone you love, forever
-**Avoid**: personalization project, platform, streamline, user, dashboard (in customer-facing copy — it's fine in the product UI itself), leverage, seamless, solution, ICP-coded phrasing ("busy professionals," "modern woman")
+**Use**: stitched, woven, heirloom, keepsake, by hand, cherished, carried, remembered, monogram, thread, occasion, someone you love, forever, design, atelier-adjacent verbs (choose, gather, bring)
+**Avoid**: personalization project, platform, streamline, user, dashboard (in customer-facing copy — it's fine in the product UI itself), leverage, seamless, solution, ICP-coded phrasing ("busy professionals," "modern woman"), form, fill out, submit, account (as the headline action — "create an account" is a software task; "start designing" is what the visitor is actually there to do), "get started" (says nothing about what starts)
 
 **Sentence rhythm**: short declarative sentences for headlines and emotional beats; one longer, warmer sentence for explanation. Luxury copy breathes — it doesn't cram three benefits into one sentence.
 
@@ -63,8 +65,10 @@ Replaces the demographic description with occasion range and relationship framin
 
 Current: a single CTA (**Start Your Project**) plus a login link. This is the one-CTA-path gap [BUSINESS_REVIEW.md](BUSINESS_REVIEW.md) flagged, and it also ignores real pilot evidence: [PILOT_FINDINGS_v1.2.0.md](PILOT_FINDINGS_v1.2.0.md) Finding 003 found customers expect to **browse before starting a blank project**. The hero should offer both paths, not force everyone through the higher-commitment one first.
 
-- **Primary CTA**: "Start Your Gift" (replaces "Start Your Project" — *gift* is what the customer is doing; *project* is internal product language)
-- **Secondary CTA**, same visual weight tier as "Already a member? Log in," but more prominent than that: "Browse the Collection →" linking to `/catalog`
+- **Primary CTA: "Start Designing"** (replaces "Start Your Project"). This is the load-bearing word choice in this whole redesign: *designing* names a creative act a visitor wants to do; *project* names an object in a database. Nobody arrives at a gift site wanting to "start a project" — they want to design something for someone. This phrasing also does real work toward the brief's core ask: it invites the visitor into making a thing, not into filling out a form, before they've even clicked.
+- **Secondary CTA: "Browse the Collection"**, same visual weight tier as "Already a member? Log in," but more prominent than that — linking to `/catalog`. Together, the pair reads as an invitation to look around *or* start making, exactly like walking into a boutique: nothing forces a decision at the door.
+
+Both CTAs use this exact wording everywhere they recur on the page (§ CTA Banner, § Navbar) — no variant phrasing between sections.
 
 ---
 
@@ -135,7 +139,7 @@ Does not exist on the current page at all — the current page has no narrative,
 >
 > *"He didn't know what to get her for their tenth anniversary. He got the date instead — stitched into the pillowcases they'd sleep on every night after."*
 
-Each vignette should eventually link to (or eventually be) a real, permissioned customer story — placeholder language only until real material exists (see "What this needs from the business" below).
+Each vignette should eventually link to (or become) a real, permissioned customer story — placeholder language only until real material exists (see "What this needs from the business" below).
 
 ---
 
@@ -145,10 +149,10 @@ Also does not exist today. This section directly closes three gaps [BUSINESS_REV
 
 Proposed structure, three parts:
 
-**a. How It Works** — three steps, visually sequenced:
-1. **Choose or bring your inspiration.** Browse the collection, or paste a link to something you already love.
-2. **Make it personal.** Pick a font, a thread color, a placement — see it before it's made.
-3. **We stitch it, you receive a quote.** A real price, a real timeline, before anything's made.
+**a. How It Works** — three steps, visually sequenced, written as a boutique would describe its own process rather than as software describing its own steps:
+1. **Bring your inspiration, or find it here.** Browse the collection, or show us something you already love.
+2. **Design it exactly as you imagine it.** Choose the monogram, the font, the thread color, the placement — see it all before a single stitch is made.
+3. **Receive your quote, then we stitch.** A real price and timeline, always your approval first — nothing is made until you say yes.
 
 **b. A starting-price signal.** Even a range ("Personalized pieces start at $__") gives a luxury shopper the confidence to keep going rather than bounce while guessing, per the exact gap BUSINESS_REVIEW.md named. Needs a real number from the business before this ships — see dependencies below.
 
@@ -170,17 +174,17 @@ Proposed structure, three parts:
 
 > **Ready to make something they'll keep forever?**
 >
-> Create a free account and start designing — no commitment until you see your quote.
+> Design it today, free — nothing is committed until you approve a real quote.
 >
-> [Start Your Gift] · [Browse the Collection]
+> [Start Designing] · [Browse the Collection]
 
-Two changes: the subtitle now names the actual reassurance a hesitant shopper needs (no commitment until a real quote, which is true — `draft` status costs nothing) rather than just restating "it's fast." And the CTA pairs with the hero's browse-first option again, for consistency.
+Two changes from the current banner: the subtitle now leads with the creative act (*design it*) rather than the administrative one (*create a free account*), while keeping the actual reassurance a hesitant shopper needs — nothing is committed until a real quote is approved, which is true today (`draft` status costs nothing). And the CTAs now match the hero's exactly, so a visitor never has to reconcile two different-sounding invitations on the same page.
 
 ---
 
 ## Section 7 — Navbar and Footer (light-touch)
 
-**Navbar**: "Get Started" button copy should match whichever hero CTA wording is finalized (currently the two already disagree slightly — "Get Started" in the nav vs. "Start Your Project" in the hero; align them, e.g. both "Start Your Gift"). No structural change needed — Catalog and Log In links are already correctly placed.
+**Navbar**: "Get Started" button copy changes to **"Start Designing"**, matching the hero and CTA banner exactly — the current page already has the nav and hero disagreeing ("Get Started" vs. "Start Your Project"), and "Get Started" on its own is exactly the kind of generic software-CTA phrasing this whole revision is removing (it names no action, gives no sense of what starts). No structural change needed — Catalog and Log In links are already correctly placed.
 
 **Footer**: out of scope for this redesign; not reviewed here beyond confirming it's a straightforward legal/utility footer with no messaging claims that conflict with the above.
 
