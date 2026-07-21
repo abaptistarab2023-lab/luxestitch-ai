@@ -16,7 +16,7 @@ export function CTABanner() {
           <Link href="/register">
             <Button
               variant="secondary"
-              className="border-primary-foreground/40 bg-primary-foreground text-primary hover:bg-primary-foreground/90"
+              className="!border-primary-foreground/40 !bg-primary-foreground !text-primary hover:!bg-primary-foreground/90"
             >
               Start Designing
             </Button>
